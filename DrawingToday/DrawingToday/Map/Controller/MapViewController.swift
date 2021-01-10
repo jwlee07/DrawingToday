@@ -26,6 +26,9 @@ class MapViewController: BaseViewController {
         defaultSettingCoreLocation()
         defaultSettingButton()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         locationErrorCheck()
@@ -58,12 +61,14 @@ extension MapViewController {
 extension MapViewController {
     private func defaultSettingCoreLocation() {
         // mainMap
+        mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true
         mainMap.setUserTrackingMode(.follow, animated: true)
         // userLocationManager
+        userLocationManager.requestWhenInUseAuthorization() // 앱을 사용할 시 위치 정보에 대한 인증
+        userLocationManager.requestAlwaysAuthorization() // 항상 위치 정보에 대한 인증
         userLocationManager.delegate = self
         userLocationManager.desiredAccuracy = kCLLocationAccuracyBest // 위치 정확도
-        userLocationManager.requestWhenInUseAuthorization() // 앱을 사용할 시 위치 정보에 대한 인증
         userLocationManager.startUpdatingLocation() // 사용자 현재 위치 업데이트
         userLocationManager.startMonitoringSignificantLocationChanges()
     }
@@ -77,6 +82,7 @@ extension MapViewController {
                 userLocationManager.desiredAccuracy = kCLLocationAccuracyBest
                 userLocationManager.delegate = self
                 userLocationManager.requestWhenInUseAuthorization()
+                userLocationManager.requestAlwaysAuthorization()
             }
         } else {
             print("위치 서비스 제공 불가")
@@ -84,12 +90,12 @@ extension MapViewController {
     }
     /// 위도 경도 값 가져오기
     private func getLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        var myAddress: String = ""
         let findLocation = CLLocation(latitude: latitude, longitude: longitude)
         let geocoder = CLGeocoder()
         let locale = Locale(identifier: "Ko-kr")
-        geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale) { (placemarks, error) in
+        geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale) { (placemarks, _) in
             if let address: [CLPlacemark] = placemarks {
+                var myAddress: String = ""
                 if let area: String = address.last?.locality {
                     myAddress += area
                 }
@@ -101,15 +107,17 @@ extension MapViewController {
         }
     }
 }
+// MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
     /// 위치 허용 선택 시 처리
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
             print("didChangeAuthorization notDetermined")
+            manager.requestAlwaysAuthorization()
             manager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse:
-            print("didChangeAuthorization authorizedWhenInUse")
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("didChangeAuthorization authorizedWhenInUse authorizedAlways")
         case .restricted:
             print("didChangeAuthorization restricted")
         case .denied:
@@ -120,13 +128,12 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     /// 사용자 위치 정보 업데이트
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lastLocation = locations.last
         if shouldGetUserLocation {
+            print(getLocation(latitude: (lastLocation?.coordinate.latitude)!,
+                              longitude: (lastLocation?.coordinate.longitude)!))
         }
     }
-}
-// MARK: - MKMapViewDelegate
-extension MapViewController: MKMapViewDelegate {
-    
 }
 // MARK: - UI
 extension MapViewController: BaseViewSettingProtocol {
