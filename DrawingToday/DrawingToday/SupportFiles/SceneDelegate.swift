@@ -41,6 +41,6 @@ fileprivate extension SceneDelegate {
     final private func applicationRootViewController() -> UIViewController {
         #if DEBUG
         #endif
-        return UINavigationController(rootViewController: ARCameraViewController())
+        return UINavigationController(rootViewController: BaseARViewController())
     }
 }

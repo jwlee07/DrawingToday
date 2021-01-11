@@ -1,5 +1,5 @@
 //
-//  ARCameraViewController.swift
+//  BaseARViewController.swift
 //  DrawingToday
 //
 //  Created by 이진욱 on 2021/01/11.
@@ -8,7 +8,7 @@
 import UIKit
 import ARKit
 
-class ARCameraViewController: BaseViewController {
+class BaseARViewController: UIViewController {
     // MARK: - Properties
     // AR
     final lazy var sceneView = ARSCNView()
@@ -19,7 +19,7 @@ class ARCameraViewController: BaseViewController {
     // Tap
     var stickerTapGesture = UITapGestureRecognizer()
     // Bool
-    var shouldSticker = false
+    var shouldSticker = true
     var shouldDrawing = false
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -33,7 +33,8 @@ class ARCameraViewController: BaseViewController {
     }
 }
 // MARK: - Tap
-extension ARCameraViewController {
+extension BaseARViewController {
+    /// Tap 생성 후 AddTarget
     private func defaultSettingTapGesutre() {
         // Tap Set
         stickerTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapGesture(_:)))
@@ -42,6 +43,7 @@ extension ARCameraViewController {
             sceneView.addGestureRecognizer($0)
         }
     }
+    /// StickerMode 시 Tap 실행
     private func didTapTouchStickerMode(sender: UITapGestureRecognizer) {
         guard let sceneViewTapOn = sender.view as? SCNView else { return }
         let touchCooridinatos = sender.location(in: sceneViewTapOn)
@@ -51,20 +53,13 @@ extension ARCameraViewController {
     }
 }
 // MARK: - AR
-extension ARCameraViewController {
+extension BaseARViewController {
+    /// AR Default Setting
     private func defaultSettingAR() {
         let sceneViewOptions: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
         sceneView.session.run(configuration, options: sceneViewOptions)
         sceneView.showsStatistics = true
         sceneView.delegate = self
-    }
-    private func stickerColorReturn(stickerColor: StickerColorState) -> UIColor {
-        switch stickerColor {
-        case .red:
-            return UIColor.systemRed
-        case .blue:
-            return UIColor.systemBlue
-        }
     }
     /// 스티커 Geometry, Color, Position 설정
     private func addStickerNode(sticker: StickerGeometryState, color: StickerColorState, position: SCNVector3) {
@@ -97,7 +92,7 @@ extension ARCameraViewController {
         stickerNode.position = position
         sceneView.scene.rootNode.addChildNode(stickerNode)
     }
-    /// 쿼터니언 더하기 연산
+    /// 현재 위치에서 방향값 쿼터니연 더하기 연산
     private func currentPosition() -> SCNVector3 {
         guard let pointOfView = sceneView.pointOfView else { return positionZero}
         let transform = pointOfView.transform
@@ -111,15 +106,25 @@ extension ARCameraViewController {
     }
 }
 // MARK: - Helper
-extension ARCameraViewController {
+extension BaseARViewController {
+    /// 쿼터니온 더하기 연산
     private func quaternionAdd(orientation: SCNVector3, locationt: SCNVector3) -> SCNVector3 {
         return SCNVector3Make(orientation.x + locationt.x,
                               orientation.y + locationt.y,
                               orientation.z + locationt.z)
     }
+    /// 스티커 Color 반환
+    private func stickerColorReturn(stickerColor: StickerColorState) -> UIColor {
+        switch stickerColor {
+        case .red:
+            return UIColor.systemRed
+        case .blue:
+            return UIColor.systemBlue
+        }
+    }
 }
 // MARK: - ARSCNViewDelegate
-extension ARCameraViewController: ARSCNViewDelegate {
+extension BaseARViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         if !(shouldSticker) && shouldDrawing {
             addStickerNode(sticker: stickerGeometryStatus, color: stickerColorStatus, position: currentPosition())
@@ -127,7 +132,7 @@ extension ARCameraViewController: ARSCNViewDelegate {
     }
 }
 // MARK: - Selector
-extension ARCameraViewController {
+extension BaseARViewController {
     @objc
     private func didTapGesture(_ sender: UITapGestureRecognizer) {
         switch sender {
@@ -140,7 +145,7 @@ extension ARCameraViewController {
     }
 }
 // MARK: - BaseViewSettingProtocol
-extension ARCameraViewController: BaseViewSettingProtocol {
+extension BaseARViewController: BaseViewSettingProtocol {
     func setAddSubViews() {
         view.addSubview(sceneView)
     }

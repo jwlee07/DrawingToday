@@ -5,7 +5,7 @@
 //  Created by 이진욱 on 2021/01/11.
 //
 
-import Foundation
+import UIKit
 
 enum StickerGeometryState {
     case box
