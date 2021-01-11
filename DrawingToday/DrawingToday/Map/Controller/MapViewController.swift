@@ -15,6 +15,9 @@ class MapViewController: BaseViewController {
     private let mainMap = MKMapView()
     private var userLocationManager = CLLocationManager()
     private var userCurrentLocation: CLLocation!
+    // Day
+    var dateFomatter = DateFormatter()
+    var today: String = ""
     // Button
     private let cameraButton = MapButton(imageName: "camera")
     // Bool
@@ -52,9 +55,19 @@ extension MapViewController {
         switch sender {
         case cameraButton:
             shouldGetUserLocation = true
+            getToday()
+            userLocationManager.startUpdatingLocation()
         default:
             break
         }
+    }
+}
+// MARK: - Day
+extension MapViewController {
+    private func getToday() {
+        dateFomatter.dateFormat = "yyyy-MM-dd"
+        today = dateFomatter.string(from: Date())
+        print("today : ", today)
     }
 }
 // MARK: - Location
@@ -103,6 +116,7 @@ extension MapViewController {
                     myAddress += " "
                     myAddress += name
                 }
+                print("myAddress : ", myAddress)
             }
         }
     }
@@ -130,16 +144,14 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.last
         if shouldGetUserLocation {
-            print(getLocation(latitude: (lastLocation?.coordinate.latitude)!,
-                              longitude: (lastLocation?.coordinate.longitude)!))
+            getLocation(latitude: (lastLocation?.coordinate.latitude)!,
+                        longitude: (lastLocation?.coordinate.longitude)!)
+            manager.stopUpdatingLocation()
         }
     }
 }
 // MARK: - UI
 extension MapViewController: BaseViewSettingProtocol {
-    func defaultSettingNavigation() {
-        navigationController?.navigationBar.isHidden = true
-    }
     func setAddSubViews() {
         view.addSubview(mainMap)
         [cameraButton].forEach {
@@ -147,7 +159,7 @@ extension MapViewController: BaseViewSettingProtocol {
         }
     }
     func setBasics() {
-        defaultSettingNavigation()
+        hideNavigationBar(shouldHide: true)
     }
     func setLayouts() {
         let safeGuide = view.safeAreaLayoutGuide

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49388FDA25AC570B00E1EF32 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */; };
+		49388FDD25AC5A6900E1EF32 /* ARCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FDC25AC5A6900E1EF32 /* ARCameraViewController.swift */; };
 		49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856025AB2DBA00E15C96 /* AppDelegate.swift */; };
 		49BB856325AB2DBA00E15C96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */; };
 		49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856425AB2DBA00E15C96 /* ViewController.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		49388FDC25AC5A6900E1EF32 /* ARCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraViewController.swift; sourceTree = "<group>"; };
 		49BB855D25AB2DBA00E15C96 /* DrawingToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49BB856025AB2DBA00E15C96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,38 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		49388FD125AC4DFD00E1EF32 /* ARCamera */ = {
+			isa = PBXGroup;
+			children = (
+				49388FD325AC4E1300E1EF32 /* View */,
+				49388FD225AC4E0C00E1EF32 /* Controller */,
+			);
+			path = ARCamera;
+			sourceTree = "<group>";
+		};
+		49388FD225AC4E0C00E1EF32 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				49388FDC25AC5A6900E1EF32 /* ARCameraViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		49388FD325AC4E1300E1EF32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		49388FD825AC56EA00E1EF32 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		49BB855425AB2DBA00E15C96 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +132,8 @@
 				49BB857125AB2DBD00E15C96 /* Info.plist */,
 				49BB857925AB2E9400E15C96 /* GoogleService-Info.plist */,
 				49BB856925AB2DBA00E15C96 /* DrawingToday.xcdatamodeld */,
+				49388FD825AC56EA00E1EF32 /* Extensions */,
+				49388FD125AC4DFD00E1EF32 /* ARCamera */,
 				49C2691325AB3A130087A07A /* Base */,
 				49C2690D25AB39A80087A07A /* Map */,
 				49BB857825AB2DCD00E15C96 /* SupportFiles */,
@@ -284,9 +322,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49388FDD25AC5A6900E1EF32 /* ARCameraViewController.swift in Sources */,
 				49C2692225AB48600087A07A /* MapButton.swift in Sources */,
 				49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */,
 				49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */,
+				49388FDA25AC570B00E1EF32 /* UIViewController+Extensions.swift in Sources */,
 				49BB856B25AB2DBA00E15C96 /* DrawingToday.xcdatamodeld in Sources */,
 				49C2691025AB39FB0087A07A /* MapViewController.swift in Sources */,
 				49BB856325AB2DBA00E15C96 /* SceneDelegate.swift in Sources */,
