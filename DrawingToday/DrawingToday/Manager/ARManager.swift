@@ -14,6 +14,15 @@ class ARManager {
     // MARK: - Init
     private init() {}
     // MARK: - Func
+    /// 카메라 포지션 변경 시 AR 세팅 삭제 후 재 세팅
+    func cameraPositionChangeARSetting(sceneView: ARSCNView, configuration: ARConfiguration) {
+        let sceneViewOptions: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
+        sceneView.session.pause()
+        sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+            node.removeFromParentNode()
+        }
+        sceneView.session.run(configuration, options: sceneViewOptions)
+    }
     /// 스티커 Geometry, Color, Position 설정 후 추가
     func addStickerNode(sceneView: ARSCNView, sticker: StickerGeometryState, color: ColorState, position: SCNVector3) {
         let stickerNode = SCNNode()

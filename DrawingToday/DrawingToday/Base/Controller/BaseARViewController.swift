@@ -16,28 +16,41 @@ class BaseARViewController: BaseViewController {
     var stickerGeometryStatus: StickerGeometryState = .box
     var stickerColorStatus: ColorState = .blue
     var drawingColorStatus: ColorState = .blue
+    var shouldDetectFace = false
     // Tap
     var stickerTapGesture = UITapGestureRecognizer()
     // Bool
     var shouldSticker = true
     var shouldDrawing = false
+    // Camera
+    let captureSession = AVCaptureSession()
     #if DEBUG
     // TEST
     let createNodeTestButton = UIButton()
     let changeNodeTestButton = UIButton()
     let resetNodeTestButton = UIButton()
+    let changeCameraPositionButton = UIButton()
     #endif
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         buildView()
         defaultSettingAR()
+        defaultSettingCamera()
         #if DEBUG
         setTestButton()
         #endif
     }
     private func buildView() {
         createViews()
+    }
+}
+// MARK: - Camera
+extension BaseARViewController {
+    /// Camera Default Setting
+    private func defaultSettingCamera() {
+        captureSession.beginConfiguration()
+        captureSession.sessionPreset = AVCaptureSession.Preset.medium
     }
 }
 // MARK: - AR
@@ -95,9 +108,12 @@ extension BaseARViewController {
         changeNodeTestButton.backgroundColor = .systemBlue
         resetNodeTestButton.setTitle("초기화", for: .normal)
         resetNodeTestButton.backgroundColor = .systemGreen
+        changeCameraPositionButton.setTitle("카메라", for: .normal)
+        changeCameraPositionButton.backgroundColor = .systemIndigo
         [createNodeTestButton,
          changeNodeTestButton,
-         resetNodeTestButton].forEach {
+         resetNodeTestButton,
+         changeCameraPositionButton].forEach {
             $0.clipsToBounds = false
             $0.layer.cornerRadius = buttonWidth * 0.1
             $0.addTarget(self, action: #selector(didTapTestButton(_:)), for: .touchUpInside)
@@ -105,9 +121,20 @@ extension BaseARViewController {
             $0.snp.makeConstraints {
                 $0.width.equalTo(buttonWidth)
                 $0.height.equalTo(buttonHeight)
-                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-padding)
             }
          }
+        [createNodeTestButton,
+        changeNodeTestButton,
+        resetNodeTestButton].forEach {
+            $0.snp.makeConstraints {
+                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-padding)
+            }
+        }
+        [changeCameraPositionButton].forEach {
+            $0.snp.makeConstraints {
+                $0.bottom.equalTo(createNodeTestButton.snp.top).offset(-padding)
+            }
+        }
         createNodeTestButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().offset(-padding)
         }
@@ -116,6 +143,9 @@ extension BaseARViewController {
         }
         resetNodeTestButton.snp.makeConstraints {
             $0.trailing.equalTo(changeNodeTestButton.snp.leading).offset(-padding)
+        }
+        changeCameraPositionButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-padding)
         }
     }
     @objc
@@ -136,6 +166,9 @@ extension BaseARViewController {
                 node.removeFromParentNode()
             }
             sceneView.session.run(configuration)
+        case changeCameraPositionButton:
+            shouldDetectFace = !shouldDetectFace
+            CameraManager.shared.changeARCameraPosition(detectFace: shouldDetectFace, sceneView: sceneView)
         default:
             break
         }

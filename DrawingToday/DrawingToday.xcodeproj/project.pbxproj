@@ -24,6 +24,7 @@
 		49C2692225AB48600087A07A /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2692125AB48600087A07A /* MapButton.swift */; };
 		49DE06F325ADEA870020B332 /* ARManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE06F225ADEA870020B332 /* ARManager.swift */; };
 		49DE06F625ADEBD80020B332 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE06F525ADEBD80020B332 /* ColorManager.swift */; };
+		49DE06F925ADFC390020B332 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE06F825ADFC390020B332 /* CameraManager.swift */; };
 		F86211437382A9ADC99C55D1 /* Pods_DrawingToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B8524AFB154ABAD6FE3EFD /* Pods_DrawingToday.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		49C2692125AB48600087A07A /* MapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
 		49DE06F225ADEA870020B332 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
 		49DE06F525ADEBD80020B332 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		49DE06F825ADFC390020B332 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		74B8524AFB154ABAD6FE3EFD /* Pods_DrawingToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawingToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9F35D8272E060B93DCED16 /* Pods-DrawingToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawingToday.debug.xcconfig"; path = "Target Support Files/Pods-DrawingToday/Pods-DrawingToday.debug.xcconfig"; sourceTree = "<group>"; };
 		D75EC81E77932FE2705DCA0E /* Pods-DrawingToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawingToday.release.xcconfig"; path = "Target Support Files/Pods-DrawingToday/Pods-DrawingToday.release.xcconfig"; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			children = (
 				49DE06F225ADEA870020B332 /* ARManager.swift */,
 				49DE06F525ADEBD80020B332 /* ColorManager.swift */,
+				49DE06F825ADFC390020B332 /* CameraManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C2692225AB48600087A07A /* MapButton.swift in Sources */,
+				49DE06F925ADFC390020B332 /* CameraManager.swift in Sources */,
 				49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */,
 				49388FE225AC82E600E1EF32 /* StickerState.swift in Sources */,
 				49DE06F625ADEBD80020B332 /* ColorManager.swift in Sources */,

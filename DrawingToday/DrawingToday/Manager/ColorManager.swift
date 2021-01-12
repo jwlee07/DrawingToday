@@ -13,9 +13,11 @@ enum ColorState {
 }
 
 class ColorManager {
+    // MARK: - Properties
     static let shared = ColorManager()
+    // MARK: - Init
     private init() {}
-    
+    // MARK: - Func
     /// Color 반환
     func colorReturn(color: ColorState) -> UIColor {
         switch color {
