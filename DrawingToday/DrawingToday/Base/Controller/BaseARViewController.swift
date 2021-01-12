@@ -8,12 +8,11 @@
 import UIKit
 import ARKit
 
-class BaseARViewController: UIViewController {
+class BaseARViewController: BaseViewController {
     // MARK: - Properties
     // AR
     final lazy var sceneView = ARSCNView()
     let configuration = ARWorldTrackingConfiguration()
-    let positionZero = SCNVector3(0, 0, 0)
     var stickerGeometryStatus: StickerGeometryState = .box
     var stickerColorStatus: ColorState = .blue
     var drawingColorStatus: ColorState = .blue
@@ -22,27 +21,23 @@ class BaseARViewController: UIViewController {
     // Bool
     var shouldSticker = true
     var shouldDrawing = false
+    #if DEBUG
+    // TEST
+    let createNodeTestButton = UIButton()
+    let changeNodeTestButton = UIButton()
+    let resetNodeTestButton = UIButton()
+    #endif
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         buildView()
         defaultSettingAR()
-        defaultSettingTapGesutre()
+        #if DEBUG
+        setTestButton()
+        #endif
     }
     private func buildView() {
         createViews()
-    }
-}
-// MARK: - Tap
-extension BaseARViewController {
-    /// Tap 생성 후 AddTarget
-    private func defaultSettingTapGesutre() {
-        // Tap Set
-        stickerTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapGesture(_:)))
-        // AddGestureRecognizer
-        [stickerTapGesture].forEach {
-            sceneView.addGestureRecognizer($0)
-        }
     }
 }
 // MARK: - AR
@@ -51,98 +46,19 @@ extension BaseARViewController {
     private func defaultSettingAR() {
         let sceneViewOptions: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
         sceneView.session.run(configuration, options: sceneViewOptions)
-        sceneView.showsStatistics = true
         sceneView.automaticallyUpdatesLighting = true
         sceneView.delegate = self
-    }
-    /// 스티커 Geometry, Color, Position 설정 후 추가
-    private func addStickerNode(sticker: StickerGeometryState, color: ColorState, position: SCNVector3) {
-        let stickerNode = SCNNode()
-        // Size
-        let stickerSize: CGFloat = 0.2
-        let stickerRadius: CGFloat = 0.1
-        let zero: CGFloat = 0
-        switch sticker {
-        case .box:
-            stickerNode.geometry = SCNBox(width: stickerSize,
-                                          height: stickerSize,
-                                          length: stickerSize,
-                                          chamferRadius: stickerSize * 0.1)
-        case .cone:
-            stickerNode.geometry = SCNCone(topRadius: zero,
-                                           bottomRadius: stickerSize,
-                                           height: stickerSize)
-        case .pyramid:
-            stickerNode.geometry = SCNPyramid(width: stickerSize,
-                                              height: stickerSize,
-                                              length: stickerSize)
-        case .sphere:
-            stickerNode.geometry = SCNSphere(radius: stickerSize)
-        case .torus:
-            stickerNode.geometry = SCNTorus(ringRadius: stickerSize,
-                                            pipeRadius: stickerSize - stickerRadius)
-        }
-        stickerNode.geometry?.firstMaterial?.diffuse.contents = colorReturn(color: color)
-        stickerNode.position = position
-        sceneView.scene.rootNode.addChildNode(stickerNode)
-    }
-    /// DrawingNode 생성 후 Color, Position 설정 후 추가
-    private func addDrawingNode(color: ColorState, position: SCNVector3) {
-        let drawingSize: CGFloat = 0.03
-        let drawingNode = SCNNode()
-        drawingNode.geometry = SCNSphere(radius: drawingSize)
-        drawingNode.geometry?.firstMaterial?.diffuse.contents = colorReturn(color: color)
-        drawingNode.position = position
-        sceneView.scene.rootNode.addChildNode(drawingNode)
-    }
-    /// 현재 위치에서 방향값 쿼터니연 더하기 연산
-    private func currentPosition() -> SCNVector3 {
-        guard let pointOfView = sceneView.pointOfView else { return positionZero}
-        let transform = pointOfView.transform
-        let orientation = SCNVector3(-transform.m31,
-                                     -transform.m32,
-                                     -transform.m33)
-        let location = SCNVector3(transform.m41,
-                                  transform.m42,
-                                  transform.m43)
-        return quaternionAdd(orientation: orientation, locationt: location)
     }
 }
 // MARK: - ARSCNViewDelegate
 extension BaseARViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        guard shouldDrawing && !shouldSticker else { return }
-        addDrawingNode(color: drawingColorStatus, position: currentPosition())
-    }
-}
-// MARK: - Helper
-extension BaseARViewController {
-    /// 쿼터니온 더하기 연산
-    private func quaternionAdd(orientation: SCNVector3, locationt: SCNVector3) -> SCNVector3 {
-        return SCNVector3Make(orientation.x + locationt.x,
-                              orientation.y + locationt.y,
-                              orientation.z + locationt.z)
-    }
-    /// 스티커 Color 반환
-    private func colorReturn(color: ColorState) -> UIColor {
-        switch color {
-        case .red:
-            return UIColor.systemRed
-        case .blue:
-            return UIColor.systemBlue
-        }
-    }
-}
-// MARK: - Selector
-extension BaseARViewController {
-    @objc
-    private func didTapGesture(_ sender: UITapGestureRecognizer) {
-        switch sender {
-        case stickerTapGesture:
-            guard shouldSticker && !shouldDrawing else { return }
-            addStickerNode(sticker: stickerGeometryStatus, color: stickerColorStatus, position: currentPosition())
-        default:
-            break
+        DispatchQueue.main.async {
+            guard self.shouldDrawing && !self.shouldSticker else { return }
+            guard self.createNodeTestButton.isHighlighted else { return }
+            ARManager.shared.addDrawingNode(sceneView: self.sceneView,
+                                            color: self.drawingColorStatus,
+                                            position: ARManager.shared.currentPosition(sceneView: self.sceneView))
         }
     }
 }
@@ -166,3 +82,63 @@ extension BaseARViewController: BaseViewSettingProtocol {
         setLayouts()
     }
 }
+#if DEBUG
+// MARK: - TEST
+extension BaseARViewController {
+    private func setTestButton() {
+        let buttonWidth: CGFloat = 100
+        let buttonHeight: CGFloat = 50
+        let padding: CGFloat = 16
+        createNodeTestButton.setTitle("생성", for: .normal)
+        createNodeTestButton.backgroundColor = .systemRed
+        changeNodeTestButton.setTitle("전환", for: .normal)
+        changeNodeTestButton.backgroundColor = .systemBlue
+        resetNodeTestButton.setTitle("초기화", for: .normal)
+        resetNodeTestButton.backgroundColor = .systemGreen
+        [createNodeTestButton,
+         changeNodeTestButton,
+         resetNodeTestButton].forEach {
+            $0.clipsToBounds = false
+            $0.layer.cornerRadius = buttonWidth * 0.1
+            $0.addTarget(self, action: #selector(didTapTestButton(_:)), for: .touchUpInside)
+            sceneView.addSubview($0)
+            $0.snp.makeConstraints {
+                $0.width.equalTo(buttonWidth)
+                $0.height.equalTo(buttonHeight)
+                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-padding)
+            }
+         }
+        createNodeTestButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-padding)
+        }
+        changeNodeTestButton.snp.makeConstraints {
+            $0.trailing.equalTo(createNodeTestButton.snp.leading).offset(-padding)
+        }
+        resetNodeTestButton.snp.makeConstraints {
+            $0.trailing.equalTo(changeNodeTestButton.snp.leading).offset(-padding)
+        }
+    }
+    @objc
+    func didTapTestButton(_ sender: UIButton) {
+        switch sender {
+        case createNodeTestButton:
+            guard shouldSticker && !shouldDrawing else { return }
+            ARManager.shared.addStickerNode(sceneView: sceneView,
+                                            sticker: stickerGeometryStatus,
+                                            color: stickerColorStatus,
+                                            position: ARManager.shared.currentPosition(sceneView: sceneView))
+        case changeNodeTestButton:
+            shouldSticker = !shouldSticker
+            shouldDrawing = !shouldDrawing
+        case resetNodeTestButton:
+            sceneView.session.pause()
+            sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+                node.removeFromParentNode()
+            }
+            sceneView.session.run(configuration)
+        default:
+            break
+        }
+    }
+}
+#endif
