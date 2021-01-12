@@ -14,8 +14,7 @@ enum StickerGeometryState {
     case cone
     case torus
 }
-
-enum StickerColorState {
+enum ColorState {
     case red
     case blue
 }

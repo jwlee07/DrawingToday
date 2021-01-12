@@ -15,7 +15,8 @@ class BaseARViewController: UIViewController {
     let configuration = ARWorldTrackingConfiguration()
     let positionZero = SCNVector3(0, 0, 0)
     var stickerGeometryStatus: StickerGeometryState = .box
-    var stickerColorStatus: StickerColorState = .blue
+    var stickerColorStatus: ColorState = .blue
+    var drawingColorStatus: ColorState = .blue
     // Tap
     var stickerTapGesture = UITapGestureRecognizer()
     // Bool
@@ -43,14 +44,6 @@ extension BaseARViewController {
             sceneView.addGestureRecognizer($0)
         }
     }
-    /// StickerMode 시 Tap 실행
-    private func didTapTouchStickerMode(sender: UITapGestureRecognizer) {
-        guard let sceneViewTapOn = sender.view as? SCNView else { return }
-        let touchCooridinatos = sender.location(in: sceneViewTapOn)
-        let hitTest = sceneViewTapOn.hitTest(touchCooridinatos)
-        let stickerPoint = hitTest.first
-        addStickerNode(sticker: stickerGeometryStatus, color: stickerColorStatus, position: currentPosition())
-    }
 }
 // MARK: - AR
 extension BaseARViewController {
@@ -59,13 +52,14 @@ extension BaseARViewController {
         let sceneViewOptions: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
         sceneView.session.run(configuration, options: sceneViewOptions)
         sceneView.showsStatistics = true
+        sceneView.automaticallyUpdatesLighting = true
         sceneView.delegate = self
     }
-    /// 스티커 Geometry, Color, Position 설정
-    private func addStickerNode(sticker: StickerGeometryState, color: StickerColorState, position: SCNVector3) {
+    /// 스티커 Geometry, Color, Position 설정 후 추가
+    private func addStickerNode(sticker: StickerGeometryState, color: ColorState, position: SCNVector3) {
         let stickerNode = SCNNode()
         // Size
-        let stickerSize: CGFloat = 0.3
+        let stickerSize: CGFloat = 0.2
         let stickerRadius: CGFloat = 0.1
         let zero: CGFloat = 0
         switch sticker {
@@ -88,9 +82,18 @@ extension BaseARViewController {
             stickerNode.geometry = SCNTorus(ringRadius: stickerSize,
                                             pipeRadius: stickerSize - stickerRadius)
         }
-        stickerNode.geometry?.firstMaterial?.diffuse.contents = stickerColorReturn(stickerColor: color)
+        stickerNode.geometry?.firstMaterial?.diffuse.contents = colorReturn(color: color)
         stickerNode.position = position
         sceneView.scene.rootNode.addChildNode(stickerNode)
+    }
+    /// DrawingNode 생성 후 Color, Position 설정 후 추가
+    private func addDrawingNode(color: ColorState, position: SCNVector3) {
+        let drawingSize: CGFloat = 0.03
+        let drawingNode = SCNNode()
+        drawingNode.geometry = SCNSphere(radius: drawingSize)
+        drawingNode.geometry?.firstMaterial?.diffuse.contents = colorReturn(color: color)
+        drawingNode.position = position
+        sceneView.scene.rootNode.addChildNode(drawingNode)
     }
     /// 현재 위치에서 방향값 쿼터니연 더하기 연산
     private func currentPosition() -> SCNVector3 {
@@ -105,6 +108,13 @@ extension BaseARViewController {
         return quaternionAdd(orientation: orientation, locationt: location)
     }
 }
+// MARK: - ARSCNViewDelegate
+extension BaseARViewController: ARSCNViewDelegate {
+    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
+        guard shouldDrawing && !shouldSticker else { return }
+        addDrawingNode(color: drawingColorStatus, position: currentPosition())
+    }
+}
 // MARK: - Helper
 extension BaseARViewController {
     /// 쿼터니온 더하기 연산
@@ -114,20 +124,12 @@ extension BaseARViewController {
                               orientation.z + locationt.z)
     }
     /// 스티커 Color 반환
-    private func stickerColorReturn(stickerColor: StickerColorState) -> UIColor {
-        switch stickerColor {
+    private func colorReturn(color: ColorState) -> UIColor {
+        switch color {
         case .red:
             return UIColor.systemRed
         case .blue:
             return UIColor.systemBlue
-        }
-    }
-}
-// MARK: - ARSCNViewDelegate
-extension BaseARViewController: ARSCNViewDelegate {
-    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        if !(shouldSticker) && shouldDrawing {
-            addStickerNode(sticker: stickerGeometryStatus, color: stickerColorStatus, position: currentPosition())
         }
     }
 }
@@ -137,8 +139,8 @@ extension BaseARViewController {
     private func didTapGesture(_ sender: UITapGestureRecognizer) {
         switch sender {
         case stickerTapGesture:
-            guard shouldSticker else { return }
-            didTapTouchStickerMode(sender: sender)
+            guard shouldSticker && !shouldDrawing else { return }
+            addStickerNode(sticker: stickerGeometryStatus, color: stickerColorStatus, position: currentPosition())
         default:
             break
         }
