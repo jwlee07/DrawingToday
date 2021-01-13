@@ -161,11 +161,7 @@ extension BaseARViewController {
             shouldSticker = !shouldSticker
             shouldDrawing = !shouldDrawing
         case resetNodeTestButton:
-            sceneView.session.pause()
-            sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
-                node.removeFromParentNode()
-            }
-            sceneView.session.run(configuration)
+            CameraManager.shared.changeARCameraPosition(detectFace: false, sceneView: sceneView)
         case changeCameraPositionButton:
             shouldDetectFace = !shouldDetectFace
             CameraManager.shared.changeARCameraPosition(detectFace: shouldDetectFace, sceneView: sceneView)
