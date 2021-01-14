@@ -42,6 +42,6 @@ fileprivate extension SceneDelegate {
         #if DEBUG
         return UINavigationController(rootViewController: MapViewController())
         #endif
-        return UINavigationController(rootViewController: MapViewController())
+        return UINavigationController(rootViewController: TestVC())
     }
 }

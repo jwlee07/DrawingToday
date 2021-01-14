@@ -1,4 +1,5 @@
 PODS:
+  - ARVideoKit (1.51)
   - Firebase/Analytics (7.3.0):
     - Firebase/Core
   - Firebase/Core (7.3.0):
@@ -66,12 +67,14 @@ PODS:
   - SwiftLint (0.42.0)
 
 DEPENDENCIES:
+  - ARVideoKit
   - Firebase/Analytics
   - SnapKit
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - ARVideoKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -86,6 +89,7 @@ SPEC REPOS:
     - SwiftLint
 
 SPEC CHECKSUMS:
+  ARVideoKit: d575d98274aab060748514aa32ac964c24c1923f
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
@@ -99,6 +103,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 4fa9579c63416865179bc416f0a92d55f009600d
 
-PODFILE CHECKSUM: 092a192f682d7b4615be2825f6a94557496a94e9
+PODFILE CHECKSUM: 31c898a728635a1ce44ad9091f74e7d695a69876
 
 COCOAPODS: 1.9.3

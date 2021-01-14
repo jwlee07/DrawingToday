@@ -12,6 +12,8 @@
 		49388FEA25AC9C7000E1EF32 /* BaseARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */; };
 		49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCC25AEE6B4008D3FC8 /* MapManager.swift */; };
 		49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */; };
+		499A322225B09AA3000A14C2 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A322125B09AA3000A14C2 /* RecordManager.swift */; };
+		499A322725B0AE32000A14C2 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A322625B0AE32000A14C2 /* TestVC.swift */; };
 		49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856025AB2DBA00E15C96 /* AppDelegate.swift */; };
 		49BB856325AB2DBA00E15C96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */; };
 		49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856425AB2DBA00E15C96 /* ViewController.swift */; };
@@ -26,7 +28,6 @@
 		49C2692225AB48600087A07A /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2692125AB48600087A07A /* MapButton.swift */; };
 		49DE06F325ADEA870020B332 /* ARManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE06F225ADEA870020B332 /* ARManager.swift */; };
 		49DE06F625ADEBD80020B332 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE06F525ADEBD80020B332 /* ColorManager.swift */; };
-		49DE06F925ADFC390020B332 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE06F825ADFC390020B332 /* CameraManager.swift */; };
 		F86211437382A9ADC99C55D1 /* Pods_DrawingToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B8524AFB154ABAD6FE3EFD /* Pods_DrawingToday.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,8 @@
 		49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseARViewController.swift; sourceTree = "<group>"; };
 		49797BCC25AEE6B4008D3FC8 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		499A322125B09AA3000A14C2 /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		499A322625B0AE32000A14C2 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		49BB855D25AB2DBA00E15C96 /* DrawingToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49BB856025AB2DBA00E15C96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +55,6 @@
 		49C2692125AB48600087A07A /* MapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
 		49DE06F225ADEA870020B332 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
 		49DE06F525ADEBD80020B332 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
-		49DE06F825ADFC390020B332 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		74B8524AFB154ABAD6FE3EFD /* Pods_DrawingToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawingToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9F35D8272E060B93DCED16 /* Pods-DrawingToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawingToday.debug.xcconfig"; path = "Target Support Files/Pods-DrawingToday/Pods-DrawingToday.debug.xcconfig"; sourceTree = "<group>"; };
 		D75EC81E77932FE2705DCA0E /* Pods-DrawingToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawingToday.release.xcconfig"; path = "Target Support Files/Pods-DrawingToday/Pods-DrawingToday.release.xcconfig"; sourceTree = "<group>"; };
@@ -87,30 +89,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		49388FD125AC4DFD00E1EF32 /* ARCamera */ = {
-			isa = PBXGroup;
-			children = (
-				49388FE025AC807200E1EF32 /* Model */,
-				49388FD325AC4E1300E1EF32 /* View */,
-				49388FD225AC4E0C00E1EF32 /* Controller */,
-			);
-			path = ARCamera;
-			sourceTree = "<group>";
-		};
-		49388FD225AC4E0C00E1EF32 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		49388FD325AC4E1300E1EF32 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		49388FD825AC56EA00E1EF32 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,13 +96,6 @@
 				49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		49388FE025AC807200E1EF32 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		49388FED25AC9D0500E1EF32 /* Controller */ = {
@@ -142,6 +113,14 @@
 				49388FE125AC82E600E1EF32 /* StickerState.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		499A322525B0AE27000A14C2 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				499A322625B0AE32000A14C2 /* TestVC.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		49BB855425AB2DBA00E15C96 = {
@@ -169,7 +148,6 @@
 				49BB857125AB2DBD00E15C96 /* Info.plist */,
 				49BB857925AB2E9400E15C96 /* GoogleService-Info.plist */,
 				49BB856925AB2DBA00E15C96 /* DrawingToday.xcdatamodeld */,
-				49388FD125AC4DFD00E1EF32 /* ARCamera */,
 				49C2691325AB3A130087A07A /* Base */,
 				49388FD825AC56EA00E1EF32 /* Extensions */,
 				49DE06F025ADEA4F0020B332 /* Manager */,
@@ -212,6 +190,7 @@
 		49C2691325AB3A130087A07A /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				499A322525B0AE27000A14C2 /* Test */,
 				49388FEE25AC9D1400E1EF32 /* Model */,
 				49388FED25AC9D0500E1EF32 /* Controller */,
 			);
@@ -231,8 +210,8 @@
 			children = (
 				49DE06F225ADEA870020B332 /* ARManager.swift */,
 				49DE06F525ADEBD80020B332 /* ColorManager.swift */,
-				49DE06F825ADFC390020B332 /* CameraManager.swift */,
 				49797BCC25AEE6B4008D3FC8 /* MapManager.swift */,
+				499A322125B09AA3000A14C2 /* RecordManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -372,14 +351,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				499A322725B0AE32000A14C2 /* TestVC.swift in Sources */,
 				49C2692225AB48600087A07A /* MapButton.swift in Sources */,
-				49DE06F925ADFC390020B332 /* CameraManager.swift in Sources */,
 				49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */,
 				49388FE225AC82E600E1EF32 /* StickerState.swift in Sources */,
 				49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */,
 				49DE06F625ADEBD80020B332 /* ColorManager.swift in Sources */,
 				49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */,
 				49388FDA25AC570B00E1EF32 /* UIViewController+Extensions.swift in Sources */,
+				499A322225B09AA3000A14C2 /* RecordManager.swift in Sources */,
 				49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */,
 				49DE06F325ADEA870020B332 /* ARManager.swift in Sources */,
 				49BB856B25AB2DBA00E15C96 /* DrawingToday.xcdatamodeld in Sources */,

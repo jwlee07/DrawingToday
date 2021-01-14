@@ -5,13 +5,16 @@ target 'DrawingToday' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  # AR
+  pod 'ARVideoKit'
+  
   # UI
   pod 'SnapKit'
 
   # Firebase
   pod 'Firebase/Analytics'
 
-  # UI
+  # Convention
   pod 'SwiftLint'
 
   # Pods for DrawingToday
