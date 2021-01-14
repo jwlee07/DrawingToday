@@ -10,6 +10,8 @@
 		49388FDA25AC570B00E1EF32 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */; };
 		49388FE225AC82E600E1EF32 /* StickerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FE125AC82E600E1EF32 /* StickerState.swift */; };
 		49388FEA25AC9C7000E1EF32 /* BaseARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */; };
+		49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCC25AEE6B4008D3FC8 /* MapManager.swift */; };
+		49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */; };
 		49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856025AB2DBA00E15C96 /* AppDelegate.swift */; };
 		49BB856325AB2DBA00E15C96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */; };
 		49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB856425AB2DBA00E15C96 /* ViewController.swift */; };
@@ -32,6 +34,8 @@
 		49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		49388FE125AC82E600E1EF32 /* StickerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerState.swift; sourceTree = "<group>"; };
 		49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseARViewController.swift; sourceTree = "<group>"; };
+		49797BCC25AEE6B4008D3FC8 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		49BB855D25AB2DBA00E15C96 /* DrawingToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49BB856025AB2DBA00E15C96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */,
+				49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				49DE06F225ADEA870020B332 /* ARManager.swift */,
 				49DE06F525ADEBD80020B332 /* ColorManager.swift */,
 				49DE06F825ADFC390020B332 /* CameraManager.swift */,
+				49797BCC25AEE6B4008D3FC8 /* MapManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -370,9 +376,11 @@
 				49DE06F925ADFC390020B332 /* CameraManager.swift in Sources */,
 				49BB856525AB2DBA00E15C96 /* ViewController.swift in Sources */,
 				49388FE225AC82E600E1EF32 /* StickerState.swift in Sources */,
+				49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */,
 				49DE06F625ADEBD80020B332 /* ColorManager.swift in Sources */,
 				49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */,
 				49388FDA25AC570B00E1EF32 /* UIViewController+Extensions.swift in Sources */,
+				49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */,
 				49DE06F325ADEA870020B332 /* ARManager.swift in Sources */,
 				49BB856B25AB2DBA00E15C96 /* DrawingToday.xcdatamodeld in Sources */,
 				49388FEA25AC9C7000E1EF32 /* BaseARViewController.swift in Sources */,

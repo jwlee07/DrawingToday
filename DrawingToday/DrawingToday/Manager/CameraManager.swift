@@ -13,7 +13,7 @@ class CameraManager {
     // MARK: - Init
     private init() {}
     // MARK: - Func
-    /// 카메리 포지션 변경 시 ARConfiguration 변경
+    /// 카메라 포지션 변경 시 ARConfiguration 변경
     func changeARCameraPosition(detectFace: Bool, sceneView: ARSCNView) {
         switch detectFace {
         case true:

@@ -40,7 +40,7 @@ fileprivate extension SceneDelegate {
     }
     final private func applicationRootViewController() -> UIViewController {
         #if DEBUG
-        return UINavigationController(rootViewController: BaseARViewController())
+        return UINavigationController(rootViewController: MapViewController())
         #endif
         return UINavigationController(rootViewController: MapViewController())
     }

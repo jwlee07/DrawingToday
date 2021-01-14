@@ -49,8 +49,7 @@ class BaseARViewController: BaseViewController {
 extension BaseARViewController {
     /// Camera Default Setting
     private func defaultSettingCamera() {
-        captureSession.beginConfiguration()
-        captureSession.sessionPreset = AVCaptureSession.Preset.medium
+        
     }
 }
 // MARK: - AR
@@ -161,7 +160,7 @@ extension BaseARViewController {
             shouldSticker = !shouldSticker
             shouldDrawing = !shouldDrawing
         case resetNodeTestButton:
-            CameraManager.shared.changeARCameraPosition(detectFace: false, sceneView: sceneView)
+            CameraManager.shared.changeARCameraPosition(detectFace: shouldDetectFace, sceneView: sceneView)
         case changeCameraPositionButton:
             shouldDetectFace = !shouldDetectFace
             CameraManager.shared.changeARCameraPosition(detectFace: shouldDetectFace, sceneView: sceneView)
