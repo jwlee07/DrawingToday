@@ -190,10 +190,11 @@ extension TestVC {
         case changeCameraPositionButton:
             shouldDetectFace = !shouldDetectFace
             RecordManager.shared.changeARCameraPosition(detectFace: shouldDetectFace, recorder: recorder, sceneView: sceneView)
+        case recordTestButton:
+            RecordManager.shared.videoRecordering(sender: recordTestButton, recorder: recorder)
         default:
             break
         }
     }
 }
 #endif
-

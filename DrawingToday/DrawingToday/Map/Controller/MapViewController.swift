@@ -55,7 +55,7 @@ extension MapViewController {
             shouldGetUserLocation = true
             userLocationManager.startUpdatingLocation()
             Date().getToday()
-            push(to: BaseARViewController(), animated: true)
+            push(to: TestVC(), animated: true)
         default:
             break
         }
