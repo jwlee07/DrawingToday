@@ -55,6 +55,7 @@ class RecordManager {
             recordingQueue.async {
                 recorder?.record(forDuration: 15, { path in
                     recorder?.export(video: path) { saved, status in
+                        print("readyToRecord saved : ", saved)
                         DispatchQueue.main.sync {
                             sender.setTitle("영상녹화시작", for: .normal)
                             self.exportMessage(success: saved, status: status)
@@ -65,6 +66,7 @@ class RecordManager {
         case .recording:
             sender.setTitle("영상녹화시작", for: .normal)
             recorder?.stop({ path in
+                print("recording path : ", path)
                 recorder?.export(video: path) { saved, status in
                     DispatchQueue.main.sync {
                         self.exportMessage(success: saved, status: status)

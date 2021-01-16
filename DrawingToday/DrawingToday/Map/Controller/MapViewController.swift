@@ -25,7 +25,7 @@ class MapViewController: BaseViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildView()
+        buildViews()
         defaultSettingCoreLocation()
         defaultSettingButton()
     }
@@ -37,7 +37,7 @@ class MapViewController: BaseViewController {
     deinit {
         shouldGetUserLocation = false
     }
-    private func buildView() {
+    override func buildViews() {
         createViews()
     }
 }
@@ -102,7 +102,7 @@ extension MapViewController: BaseViewSettingProtocol {
         }
     }
     func setBasics() {
-        hideNavigationBar(shouldHide: true)
+        hideNavigationBar()
     }
     func setLayouts() {
         let safeGuide = view.safeAreaLayoutGuide

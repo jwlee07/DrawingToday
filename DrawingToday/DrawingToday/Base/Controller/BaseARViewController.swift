@@ -80,7 +80,7 @@ extension BaseARViewController: BaseViewSettingProtocol {
     }
     func setBasics() {
         sceneView.automaticallyUpdatesLighting = true
-        hideNavigationBar(shouldHide: true)
+        hideNavigationBar()
     }
     func setLayouts() {
         sceneView.snp.makeConstraints {

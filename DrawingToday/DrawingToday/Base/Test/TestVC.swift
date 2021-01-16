@@ -115,14 +115,14 @@ extension TestVC {
         let padding: CGFloat = 16
         createNodeTestButton.setTitle("생성", for: .normal)
         createNodeTestButton.backgroundColor = .systemRed
-        changeNodeTestButton.setTitle("전환", for: .normal)
+        changeNodeTestButton.setTitle("노드전환", for: .normal)
         changeNodeTestButton.backgroundColor = .systemBlue
         resetNodeTestButton.setTitle("초기화", for: .normal)
-        resetNodeTestButton.backgroundColor = .systemGreen
+        resetNodeTestButton.backgroundColor = .systemTeal
         changeCameraPositionButton.setTitle("카메라", for: .normal)
         changeCameraPositionButton.backgroundColor = .systemIndigo
         recordTestButton.setTitle("영상녹화시작", for: .normal)
-        recordTestButton.backgroundColor = .systemTeal
+        recordTestButton.backgroundColor = .systemGreen
         pauseBTestButton.setTitle("영상녹화중지", for: .normal)
         pauseBTestButton.backgroundColor = .systemPink
         [createNodeTestButton,
