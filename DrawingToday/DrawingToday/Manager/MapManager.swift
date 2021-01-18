@@ -51,15 +51,15 @@ class MapManager {
     func locationAllowSet(locationManager: CLLocationManager, status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
-            print("didChangeAuthorization notDetermined")
+            print("didChangeAuthorization : notDetermined")
             locationManager.requestAlwaysAuthorization()
             locationManager.requestWhenInUseAuthorization()
         case .authorizedWhenInUse, .authorizedAlways:
-            print("didChangeAuthorization authorizedWhenInUse authorizedAlways")
+            print("didChangeAuthorization : authorizedWhenInUse authorizedAlways")
         case .restricted:
-            print("didChangeAuthorization restricted")
+            print("didChangeAuthorization : restricted")
         case .denied:
-            print("didChangeAuthorization denied")
+            print("didChangeAuthorization : denied")
         default:
             break
         }

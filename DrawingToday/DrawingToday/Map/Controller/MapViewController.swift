@@ -65,7 +65,7 @@ extension MapViewController {
 extension MapViewController {
     private func defaultSettingCoreLocation() {
         // mainMap
-        mainMap.mapType = MKMapType.standard
+        mainMap.mapType = MKMapType.mutedStandard
         mainMap.showsUserLocation = true
         mainMap.setUserTrackingMode(.follow, animated: true)
         // userLocationManager

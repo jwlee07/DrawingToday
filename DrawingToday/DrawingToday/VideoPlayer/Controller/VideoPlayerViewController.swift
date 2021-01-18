@@ -11,16 +11,12 @@ import AVFoundation
 
 class VideoPlayerViewController: BaseViewController {
     // MARK: - Properties
-    let videoPlayer = AVPlayer()
-    lazy var videoPlayerLayer = AVPlayerLayer(player: videoPlayer)
-    var videoFileName: String = "test"
-    var videoType: String = "mp4"
+    let padding: CGFloat = 24
+    lazy var videoPlayerView = VideoPlayerView(viewWidth: deviceWidth - (padding * 2), viewHeight: deviceHeight / 2)
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideNavigationBar()
         buildViews()
-        PlayerManager.shared.playVideoWithFileName(player: videoPlayer, filName: videoFileName, fileType: videoType)
     }
     override func buildViews() {
         createViews()
@@ -29,17 +25,20 @@ class VideoPlayerViewController: BaseViewController {
 // MARK: - UI
 extension VideoPlayerViewController: BaseViewSettingProtocol {
     func setAddSubViews() {
-        view.layer.addSublayer(videoPlayerLayer)
+        view.addSubview(videoPlayerView)
     }
     func setBasics() {
-        videoPlayerLayer.videoGravity = .resizeAspectFill
+        hideNavigationBar()
+        videoPlayerView.clipsToBounds = true
+        videoPlayerView.layer.cornerRadius = 30
     }
     func setLayouts() {
-        let padding: CGFloat = 32
-        videoPlayerLayer.frame = CGRect(x: 0,
-                                        y: 0,
-                                        width: deviceWidth - padding,
-                                        height: deviceHeight - padding)
+        videoPlayerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(padding)
+            $0.leading.equalToSuperview().offset(padding)
+            $0.trailing.equalToSuperview().offset(-padding)
+            $0.height.equalTo(deviceHeight / 2)
+        }
     }
     func createViews() {
         setAddSubViews()
