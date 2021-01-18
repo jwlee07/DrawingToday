@@ -123,7 +123,7 @@ extension TestVC {
         changeCameraPositionButton.backgroundColor = .systemIndigo
         recordTestButton.setTitle("영상녹화시작", for: .normal)
         recordTestButton.backgroundColor = .systemGreen
-        pauseBTestButton.setTitle("영상녹화중지", for: .normal)
+        pauseBTestButton.setTitle("영상화면보기", for: .normal)
         pauseBTestButton.backgroundColor = .systemPink
         [createNodeTestButton,
          changeNodeTestButton,
@@ -192,6 +192,8 @@ extension TestVC {
             RecordManager.shared.changeARCameraPosition(detectFace: shouldDetectFace, recorder: recorder, sceneView: sceneView)
         case recordTestButton:
             RecordManager.shared.videoRecordering(sender: recordTestButton, recorder: recorder)
+        case pauseBTestButton:
+            push(to: VideoPlayerViewController(), animated: true)
         default:
             break
         }

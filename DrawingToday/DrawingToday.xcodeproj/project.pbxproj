@@ -192,6 +192,7 @@
 		49BB857825AB2DCD00E15C96 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				499A322525B0AE27000A14C2 /* Test */,
 				49BB856025AB2DBA00E15C96 /* AppDelegate.swift */,
 				49BB856225AB2DBA00E15C96 /* SceneDelegate.swift */,
 				49BB856C25AB2DBD00E15C96 /* Assets.xcassets */,
@@ -219,7 +220,6 @@
 		49C2691325AB3A130087A07A /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				499A322525B0AE27000A14C2 /* Test */,
 				49388FEE25AC9D1400E1EF32 /* Model */,
 				49388FED25AC9D0500E1EF32 /* Controller */,
 			);

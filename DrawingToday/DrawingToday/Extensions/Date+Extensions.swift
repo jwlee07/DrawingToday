@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    /// 금일 날짜 Date -> String 변환
     func getToday() {
         let fomatter = DateFormatter()
         fomatter.dateFormat = "yyyy-MM-dd"
