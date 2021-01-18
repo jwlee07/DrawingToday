@@ -10,8 +10,12 @@ import SnapKit
 
 class BaseViewController: UIViewController {
     // MARK: - Properties
-    let deviceWidth = UIScreen.main.bounds.width
-    let deviceHeight = UIScreen.main.bounds.height
+    // Device 가로, 세로 길이
+    let deviceWidth = UIScreen.screenWidth
+    let deviceHeight = UIScreen.screenHeight
+    // Device 가로, 세로 비율
+    let widthRatio = UIScreen.widthRatio
+    let heightRatio = UIScreen.heightRatio
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()

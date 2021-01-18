@@ -12,6 +12,7 @@
 		49388FEA25AC9C7000E1EF32 /* BaseARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */; };
 		496BC0F225B5819800005D90 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 49A7685525B348A4006E2E29 /* test.mp4 */; };
 		496BC0F625B5824B00005D90 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC0F525B5824B00005D90 /* VideoPlayerView.swift */; };
+		496BC0FB25B58E2800005D90 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC0FA25B58E2800005D90 /* UIScreen+Extensions.swift */; };
 		49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCC25AEE6B4008D3FC8 /* MapManager.swift */; };
 		49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */; };
 		499A322225B09AA3000A14C2 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A322125B09AA3000A14C2 /* RecordManager.swift */; };
@@ -37,6 +38,7 @@
 		49388FE125AC82E600E1EF32 /* StickerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerState.swift; sourceTree = "<group>"; };
 		49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseARViewController.swift; sourceTree = "<group>"; };
 		496BC0F525B5824B00005D90 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		496BC0FA25B58E2800005D90 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		49797BCC25AEE6B4008D3FC8 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		499A322125B09AA3000A14C2 /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				49388FD925AC570B00E1EF32 /* UIViewController+Extensions.swift */,
 				49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */,
+				496BC0FA25B58E2800005D90 /* UIScreen+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */,
 				49DE06F325ADEA870020B332 /* ARManager.swift in Sources */,
 				49BB856B25AB2DBA00E15C96 /* DrawingToday.xcdatamodeld in Sources */,
+				496BC0FB25B58E2800005D90 /* UIScreen+Extensions.swift in Sources */,
 				49388FEA25AC9C7000E1EF32 /* BaseARViewController.swift in Sources */,
 				49C2691025AB39FB0087A07A /* MapViewController.swift in Sources */,
 				49BB856325AB2DBA00E15C96 /* SceneDelegate.swift in Sources */,

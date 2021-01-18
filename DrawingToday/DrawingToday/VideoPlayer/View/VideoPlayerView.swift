@@ -23,7 +23,6 @@ class VideoPlayerView: UIView {
                                         y: 0,
                                         width: viewWidth,
                                         height: viewHeight)
-        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -42,7 +41,6 @@ extension VideoPlayerView: BaseViewSettingProtocol {
         videoPlayerLayer.videoGravity = .resizeAspectFill
     }
     func setLayouts() {
-        
     }
     func createViews() {
         setAddSubViews()
