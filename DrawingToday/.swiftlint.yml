@@ -1,5 +1,6 @@
 disabled_rules:
 - line_length
+- syntactic_sugar
 
 included:
 

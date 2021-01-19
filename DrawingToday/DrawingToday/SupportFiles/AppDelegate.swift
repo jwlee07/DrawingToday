@@ -79,11 +79,10 @@ extension AppDelegate: GIDSignInDelegate {
             print("error : ", error)
             return
         }
-        
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
-        print("credential : ", credential)
+        SignInManager.shared.googleUserAuthFirebase(credential: credential)
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         print("사용자가 앱에서 DisConnect 되었습니다.")

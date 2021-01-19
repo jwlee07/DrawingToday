@@ -7,6 +7,9 @@
 
 import Foundation
 import AuthenticationServices
+import Firebase
+import FirebaseAuth
+import CryptoKit
 
 class SignInManager {
     // MARK: - Properties
@@ -24,9 +27,8 @@ extension SignInManager {
         guard let firstName = userFirstName,
               let lastName = userLastName,
               let email = userEmail else { return }
-        print("firstName : ", firstName)
-        print("email : ", email)
-        AppleUserInfo.init(firstName: firstName, lastName: lastName, email: email)
+        print("userName : ", lastName + firstName)
+        print("userEmail : ", email)
     }
     /// Apple ID 자격증명 상태에 따라 처리
     func appleUserGetCredentialState(userIdentfier: String) {
@@ -44,5 +46,58 @@ extension SignInManager {
                 break
             }
         }
+    }
+}
+// MARK: - Google
+extension SignInManager {
+    func googleUserAuthFirebase(credential: AuthCredential) {
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                print("error : ", error)
+                return
+            } else {
+                print("Login Sucess")
+            }
+        }
+    }
+}
+// MARK: - Helper
+extension SignInManager {
+    /// 암호로 보호된 nonce 생성
+    func randomNonceString(length: Int = 32) -> String {
+      precondition(length > 0)
+      let charset: Array<Character> = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+      var result = ""
+      var remainingLength = length
+      while remainingLength > 0 {
+        let randoms: [UInt8] = (0 ..< 16).map { _ in
+          var random: UInt8 = 0
+          let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+          if errorCode != errSecSuccess {
+            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+          }
+          return random
+        }
+        randoms.forEach { random in
+          if remainingLength == 0 {
+            return
+          }
+          if random < charset.count {
+            result.append(charset[Int(random)])
+            remainingLength -= 1
+          }
+        }
+      }
+      return result
+    }
+    /// sha256 전환
+    func sha256(_ input: String) -> String {
+      let inputData = Data(input.utf8)
+      let hashedData = SHA256.hash(data: inputData)
+      let hashString = hashedData.compactMap {
+        return String(format: "%02x", $0)
+      }.joined()
+
+      return hashString
     }
 }

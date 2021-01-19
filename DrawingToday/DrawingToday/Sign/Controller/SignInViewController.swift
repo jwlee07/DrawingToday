@@ -14,6 +14,7 @@ class SignInViewController: BaseViewController {
     // MARK: - Properties
     let appleLoginButton = ASAuthorizationAppleIDButton()
     let googleLoginButton = GIDSignInButton()
+    fileprivate var currentNonce: String?
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +30,17 @@ class SignInViewController: BaseViewController {
 // MARK: - Helper
 extension SignInViewController {
     /// Apple Login Default Setting
+    @available(iOS 13, *)
     private func defaultSettingAppleLogin() {
+        let nonce = SignInManager.shared.randomNonceString()
+        currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let appleRequest = appleIDProvider.createRequest()
-        appleRequest.requestedScopes = [.fullName, .email]
-        let authorizationController = ASAuthorizationController(authorizationRequests: [appleRequest])
-        authorizationController.delegate = self // 로그인 성공/실패 시 처리를 위한 채택
-        authorizationController.presentationContextProvider = self // 로그인 요청 창을 띄우기 위한 채택
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = SignInManager.shared.sha256(nonce)
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
     /// Google Login Default Setting
@@ -43,7 +48,6 @@ extension SignInViewController {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.signIn()
     }
-    
     private func defaultSettingLoginButton() {
         appleLoginButton.addTarget(self, action: #selector(didTapAppleLoginButton(sender:)), for: .touchUpInside)
     }
@@ -52,14 +56,22 @@ extension SignInViewController {
 extension SignInViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
-        let userIdentfier = appleIDCredential.user
-        SignInManager.shared.appleUserGetInfo(appleIDCredential: appleIDCredential)
-        SignInManager.shared.appleUserGetCredentialState(userIdentfier: userIdentfier)
-    }
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("didCompleteWithError error : ", error.localizedDescription)
+        guard let nonce = currentNonce else { fatalError() }
+        guard let appleIDToken = appleIDCredential.identityToken else { return }
+        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
+        let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                  idToken: idTokenString,
+                                                  rawNonce: nonce)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            guard error != nil else { return }
+            print("authResult) : ", authResult!)
+        }
+        func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+            print("apple Login Error : ", error)
+        }
     }
 }
+
 // MARK: - Apple ASAuthorizationControllerPresentationContextProviding
 extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {

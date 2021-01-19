@@ -7,15 +7,13 @@
 
 import Foundation
 
-struct AppleUserInfo {
+struct UserInfo {
     // MARK: - Properties
-    let firstName: String // User First Name
-    let lastName: String // User First Name
-    let email: String // User Email
+    let userName: String
+    let userEmail: String
     // MARK: - Init
-    init(firstName: String, lastName: String, email: String) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
+    init(userName: String, userEmail: String) {
+        self.userName = userName
+        self.userEmail = userEmail
     }
 }
