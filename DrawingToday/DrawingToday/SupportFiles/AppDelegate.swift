@@ -9,15 +9,20 @@ import UIKit
 import Firebase
 import CoreData
 import ARVideoKit
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        firebaseDefaultSetting()
+        defaultSettingFirebase()
+        defaultSettingGIDSignIn()
         return true
     }
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return ViewAR.orientation
+    }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return defaultSettingGIDSignInURL(url: url)
     }
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -53,7 +58,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 // MARK: - Firebase
 fileprivate extension AppDelegate {
-    final private func firebaseDefaultSetting() {
+    final private func defaultSettingFirebase() {
         FirebaseApp.configure()
+    }
+}
+// MARK: - GIDSignIn
+fileprivate extension AppDelegate {
+    final private func defaultSettingGIDSignIn() {
+        GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance()?.delegate = self
+    }
+    final private func defaultSettingGIDSignInURL(url: URL) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+}
+// MARK: - GIDSignInDelegate
+extension AppDelegate: GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print("error : ", error)
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        print("credential : ", credential)
+    }
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        print("사용자가 앱에서 DisConnect 되었습니다.")
     }
 }

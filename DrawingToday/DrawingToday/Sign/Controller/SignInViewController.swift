@@ -7,22 +7,28 @@
 
 import UIKit
 import AuthenticationServices
+import Firebase
+import GoogleSignIn
 
 class SignInViewController: BaseViewController {
     // MARK: - Properties
     let appleLoginButton = ASAuthorizationAppleIDButton()
+    let googleLoginButton = GIDSignInButton()
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         buildViews()
         defaultSettingLoginButton()
+        defaultSettingGoogleLogin()
     }
     override func buildViews() {
         createViews()
     }
 }
-// MARK: - Apple Helper
+// MARK: - Helper
 extension SignInViewController {
+    /// Apple Login Default Setting
     private func defaultSettingAppleLogin() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let appleRequest = appleIDProvider.createRequest()
@@ -31,6 +37,15 @@ extension SignInViewController {
         authorizationController.delegate = self // 로그인 성공/실패 시 처리를 위한 채택
         authorizationController.presentationContextProvider = self // 로그인 요청 창을 띄우기 위한 채택
         authorizationController.performRequests()
+    }
+    /// Google Login Default Setting
+    private func defaultSettingGoogleLogin() {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.signIn()
+    }
+    
+    private func defaultSettingLoginButton() {
+        appleLoginButton.addTarget(self, action: #selector(didTapAppleLoginButton(sender:)), for: .touchUpInside)
     }
 }
 // MARK: - Apple ASAuthorizationControllerDelegate
@@ -51,13 +66,6 @@ extension SignInViewController: ASAuthorizationControllerPresentationContextProv
         return view.window!
     }
 }
-// MARK: - Common Helper
-extension SignInViewController {
-    private func defaultSettingLoginButton() {
-        appleLoginButton.addTarget(self, action: #selector(didTapAppleLoginButton(sender:)), for: .touchUpInside)
-    }
-}
-
 // MARK: - Selector
 extension SignInViewController {
     @objc
@@ -69,9 +77,10 @@ extension SignInViewController {
 // MARK: - UI
 extension SignInViewController: BaseViewSettingProtocol {
     func setAddSubViews() {
-        [appleLoginButton].forEach {
+        [appleLoginButton,
+         googleLoginButton].forEach {
             view.addSubview($0)
-        }
+         }
     }
     func setBasics() {
         hideNavigationBar()
@@ -81,15 +90,19 @@ extension SignInViewController: BaseViewSettingProtocol {
         let buttonHeight: CGFloat = 48
         let padding: CGFloat = 16
         // 레이아웃 설정
-        [appleLoginButton].forEach {
+        [appleLoginButton,
+         googleLoginButton].forEach {
             $0.snp.makeConstraints {
                 $0.leading.equalToSuperview().offset(padding)
                 $0.trailing.equalToSuperview().offset(-padding)
                 $0.height.equalTo(buttonHeight)
             }
-        }
+         }
         appleLoginButton.snp.makeConstraints {
             $0.center.equalTo(view.snp.center)
+        }
+        googleLoginButton.snp.makeConstraints {
+            $0.top.equalTo(appleLoginButton.snp.bottom).offset(padding)
         }
     }
     func createViews() {
