@@ -193,7 +193,9 @@ extension TestVC {
         case recordTestButton:
             RecordManager.shared.videoRecordering(sender: recordTestButton, recorder: recorder)
         case pauseBTestButton:
-            push(to: VideoPlayerViewController(), animated: true)
+            let videoVC = VideoPlayerViewController()
+            videoVC.view.backgroundColor = .systemBackground
+            push(to: videoVC, animated: true)
         default:
             break
         }

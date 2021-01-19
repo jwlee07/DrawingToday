@@ -13,6 +13,9 @@
 		496BC0F225B5819800005D90 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 49A7685525B348A4006E2E29 /* test.mp4 */; };
 		496BC0F625B5824B00005D90 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC0F525B5824B00005D90 /* VideoPlayerView.swift */; };
 		496BC0FB25B58E2800005D90 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC0FA25B58E2800005D90 /* UIScreen+Extensions.swift */; };
+		496BC12225B6B3C900005D90 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC12125B6B3C900005D90 /* SignInViewController.swift */; };
+		496BC14625B6C8D500005D90 /* SignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC14525B6C8D500005D90 /* SignInManager.swift */; };
+		496BC14F25B6CB6400005D90 /* SignInUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BC14E25B6CB6400005D90 /* SignInUserInfo.swift */; };
 		49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCC25AEE6B4008D3FC8 /* MapManager.swift */; };
 		49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */; };
 		499A322225B09AA3000A14C2 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A322125B09AA3000A14C2 /* RecordManager.swift */; };
@@ -39,6 +42,10 @@
 		49388FE925AC9C7000E1EF32 /* BaseARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseARViewController.swift; sourceTree = "<group>"; };
 		496BC0F525B5824B00005D90 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		496BC0FA25B58E2800005D90 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
+		496BC12125B6B3C900005D90 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		496BC13325B6B85300005D90 /* DrawingToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DrawingToday.entitlements; sourceTree = "<group>"; };
+		496BC14525B6C8D500005D90 /* SignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInManager.swift; sourceTree = "<group>"; };
+		496BC14E25B6CB6400005D90 /* SignInUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUserInfo.swift; sourceTree = "<group>"; };
 		49797BCC25AEE6B4008D3FC8 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		49797BCF25AEE98F008D3FC8 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		499A322125B09AA3000A14C2 /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
@@ -128,6 +135,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		496BC11F25B6B38E00005D90 /* Sign */ = {
+			isa = PBXGroup;
+			children = (
+				496BC14825B6CA6300005D90 /* Model */,
+				496BC12025B6B3AD00005D90 /* Controller */,
+			);
+			path = Sign;
+			sourceTree = "<group>";
+		};
+		496BC12025B6B3AD00005D90 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				496BC12125B6B3C900005D90 /* SignInViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		496BC14825B6CA6300005D90 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				496BC14E25B6CB6400005D90 /* SignInUserInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		499A322525B0AE27000A14C2 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,14 +207,16 @@
 		49BB855F25AB2DBA00E15C96 /* DrawingToday */ = {
 			isa = PBXGroup;
 			children = (
-				49A7685525B348A4006E2E29 /* test.mp4 */,
 				49BB857125AB2DBD00E15C96 /* Info.plist */,
 				49BB857925AB2E9400E15C96 /* GoogleService-Info.plist */,
+				496BC13325B6B85300005D90 /* DrawingToday.entitlements */,
 				49BB856925AB2DBA00E15C96 /* DrawingToday.xcdatamodeld */,
+				49A7685525B348A4006E2E29 /* test.mp4 */,
 				49C2691325AB3A130087A07A /* Base */,
 				49388FD825AC56EA00E1EF32 /* Extensions */,
 				49DE06F025ADEA4F0020B332 /* Manager */,
 				49C2690D25AB39A80087A07A /* Map */,
+				496BC11F25B6B38E00005D90 /* Sign */,
 				49A7681625B2E36C006E2E29 /* VideoPlayer */,
 				49BB857825AB2DCD00E15C96 /* SupportFiles */,
 			);
@@ -242,6 +276,7 @@
 				49797BCC25AEE6B4008D3FC8 /* MapManager.swift */,
 				499A322125B09AA3000A14C2 /* RecordManager.swift */,
 				49A7684F25B33EC9006E2E29 /* PlayerManager.swift */,
+				496BC14525B6C8D500005D90 /* SignInManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -383,15 +418,18 @@
 				499A322725B0AE32000A14C2 /* TestVC.swift in Sources */,
 				49A7681925B2E3AD006E2E29 /* VideoPlayerViewController.swift in Sources */,
 				49C2692225AB48600087A07A /* MapButton.swift in Sources */,
+				496BC14625B6C8D500005D90 /* SignInManager.swift in Sources */,
 				49388FE225AC82E600E1EF32 /* StickerState.swift in Sources */,
 				49797BCD25AEE6B4008D3FC8 /* MapManager.swift in Sources */,
 				49DE06F625ADEBD80020B332 /* ColorManager.swift in Sources */,
 				49BB856125AB2DBA00E15C96 /* AppDelegate.swift in Sources */,
 				49A7685025B33EC9006E2E29 /* PlayerManager.swift in Sources */,
+				496BC12225B6B3C900005D90 /* SignInViewController.swift in Sources */,
 				496BC0F625B5824B00005D90 /* VideoPlayerView.swift in Sources */,
 				49388FDA25AC570B00E1EF32 /* UIViewController+Extensions.swift in Sources */,
 				499A322225B09AA3000A14C2 /* RecordManager.swift in Sources */,
 				49797BD025AEE98F008D3FC8 /* Date+Extensions.swift in Sources */,
+				496BC14F25B6CB6400005D90 /* SignInUserInfo.swift in Sources */,
 				49DE06F325ADEA870020B332 /* ARManager.swift in Sources */,
 				49BB856B25AB2DBA00E15C96 /* DrawingToday.xcdatamodeld in Sources */,
 				496BC0FB25B58E2800005D90 /* UIScreen+Extensions.swift in Sources */,
@@ -527,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DrawingToday/DrawingToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 25WA95NQNW;
 				INFOPLIST_FILE = DrawingToday/Info.plist;
@@ -547,6 +586,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DrawingToday/DrawingToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 25WA95NQNW;
 				INFOPLIST_FILE = DrawingToday/Info.plist;
