@@ -19,17 +19,6 @@ class SignInManager {
 }
 // MARK: - Apple
 extension SignInManager {
-    /// Apple User 이름, Email 정보 가져오기
-    func appleUserGetInfo(appleIDCredential: ASAuthorizationAppleIDCredential) {
-        let userFirstName = appleIDCredential.fullName?.givenName
-        let userLastName = appleIDCredential.fullName?.familyName
-        let userEmail = appleIDCredential.email
-        guard let firstName = userFirstName,
-              let lastName = userLastName,
-              let email = userEmail else { return }
-        print("userName : ", lastName + firstName)
-        print("userEmail : ", email)
-    }
     /// Apple ID 자격증명 상태에 따라 처리
     func appleUserGetCredentialState(userIdentfier: String) {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -44,19 +33,6 @@ extension SignInManager {
                 break
             default:
                 break
-            }
-        }
-    }
-}
-// MARK: - Google
-extension SignInManager {
-    func googleUserAuthFirebase(credential: AuthCredential) {
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error = error {
-                print("error : ", error)
-                return
-            } else {
-                print("Login Sucess")
             }
         }
     }

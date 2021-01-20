@@ -9,8 +9,8 @@ import Foundation
 
 struct UserInfo {
     // MARK: - Properties
-    let userName: String
-    let userEmail: String
+    var userName: String
+    var userEmail: String
     // MARK: - Init
     init(userName: String, userEmail: String) {
         self.userName = userName
