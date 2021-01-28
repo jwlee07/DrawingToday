@@ -52,7 +52,10 @@ class TestVC: BaseViewController {
     private func buildView() {
         let tapGestureRecoginizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         let longTapGestureRecoginizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTap(sender:)))
+//        let swipeTapGesutreRecoginizer = UISwipeGestureRecognizer(target: self, action: #selector(handleLongTap(sender:)))
         sceneView.addGestureRecognizer(tapGestureRecoginizer)
+        sceneView.addGestureRecognizer(longTapGestureRecoginizer)
+//        sceneView.addGestureRecognizer(swipeTapGesutreRecoginizer)
         createViews()
     }
 }
@@ -60,8 +63,9 @@ class TestVC: BaseViewController {
 extension TestVC {
     @objc
     func handleLongTap(sender: UILongPressGestureRecognizer) {
+        print("UILongPressGestureRecognizer")
         let longTapLocation = sender.location(in: sceneView)
-        let hitTestResult = sceneView.hitTest(longTapLocation, types: .existingPlane)
+        let hitTestResult = sceneView.hitTest(longTapLocation, types: .featurePoint)
         if !hitTestResult.isEmpty {
             let hitResult = hitTestResult.first!
             ARManager.shared.addBox(sceneView: sceneView, hitResult: hitResult)
@@ -73,7 +77,7 @@ extension TestVC {
     func handleTap(sender: UITapGestureRecognizer) {
         print("handleTap")
         let touchLocation = sender.location(in: sceneView)
-        let hitTestResult = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+        let hitTestResult = sceneView.hitTest(touchLocation, types: .featurePoint)
         if !hitTestResult.isEmpty {
             print("!hitTestResult.isEmpty")
             let hitResult = hitTestResult.first!
@@ -117,7 +121,6 @@ extension TestVC {
     /// AR Default Setting
     private func defaultSettingAR() {
         let sceneViewOptions: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
-        configuration.planeDetection = .vertical
         sceneView.session.run(configuration, options: sceneViewOptions)
         sceneView.automaticallyUpdatesLighting = true
         sceneView.delegate = self
@@ -141,7 +144,7 @@ extension TestVC: ARSCNViewDelegate {
         planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
         planeNode.position = ARManager.shared.currentPosition(sceneView: sceneView)
         DispatchQueue.main.async {
-//            self.sceneView.scene.rootNode.addChildNode(self.planeNode)
+            //            self.sceneView.scene.rootNode.addChildNode(self.planeNode)
             guard self.shouldDrawing && !self.shouldSticker else { return }
             guard self.createNodeTestButton.isHighlighted else { return }
             ARManager.shared.addDrawingNode(sceneView: self.sceneView,
