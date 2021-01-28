@@ -26,12 +26,24 @@ class ARManager {
             node.removeFromParentNode()
         }
     }
+    func addBox(sceneView: ARSCNView, hitResult: ARHitTestResult) {
+        let boxGeometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.01)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.systemRed
+        boxGeometry.materials = [material]
+        let boxNode = SCNNode(geometry: boxGeometry)
+        boxNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
+                                      hitResult.worldTransform.columns.3.y,
+                                      hitResult.worldTransform.columns.3.z)
+        sceneView.scene.rootNode.addChildNode(boxNode)
+    }
     /// 스티커 Geometry, Color, Position 설정 후 추가
     func addStickerNode(sceneView: ARSCNView, sticker: StickerGeometryState, color: ColorState, position: SCNVector3) {
+        print("addStickerNode")
         let stickerNode = SCNNode()
         // Size
-        let stickerSize: CGFloat = 0.2
-        let stickerRadius: CGFloat = 0.1
+        let stickerSize: CGFloat = 0.5
+        let stickerRadius: CGFloat = 0.01
         let zero: CGFloat = 0
         switch sticker {
         case .box:

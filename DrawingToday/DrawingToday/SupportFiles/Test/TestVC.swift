@@ -15,6 +15,7 @@ class TestVC: BaseViewController {
     // AR
     final lazy var sceneView = ARSCNView()
     let configuration = ARWorldTrackingConfiguration()
+    let planeNode = SCNNode(geometry: SCNPlane(width: UIScreen.screenWidth, height: UIScreen.screenHeight))
     var stickerGeometryStatus: StickerGeometryState = .box
     var stickerColorStatus: ColorState = .blue
     var drawingColorStatus: ColorState = .blue
@@ -49,14 +50,74 @@ class TestVC: BaseViewController {
         recorder?.rest()
     }
     private func buildView() {
+        let tapGestureRecoginizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        let longTapGestureRecoginizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTap(sender:)))
+        sceneView.addGestureRecognizer(tapGestureRecoginizer)
         createViews()
     }
+}
+// MARK: - Tap
+extension TestVC {
+    @objc
+    func handleLongTap(sender: UILongPressGestureRecognizer) {
+        let longTapLocation = sender.location(in: sceneView)
+        let hitTestResult = sceneView.hitTest(longTapLocation, types: .existingPlane)
+        if !hitTestResult.isEmpty {
+            let hitResult = hitTestResult.first!
+            ARManager.shared.addBox(sceneView: sceneView, hitResult: hitResult)
+        } else {
+            print("hitTestResult.isEmpty")
+        }
+    }
+    @objc
+    func handleTap(sender: UITapGestureRecognizer) {
+        print("handleTap")
+        let touchLocation = sender.location(in: sceneView)
+        let hitTestResult = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+        if !hitTestResult.isEmpty {
+            print("!hitTestResult.isEmpty")
+            let hitResult = hitTestResult.first!
+            ARManager.shared.addBox(sceneView: sceneView, hitResult: hitResult)
+        } else {
+            print("hitTestResult.isEmpty")
+        }
+        //        let sceneViewTappedOn = sender.view as! ARSCNView
+        //        let touchCoordinates = sender.location(in: sceneViewTappedOn)
+        //        let hitTest = sceneViewTappedOn.hitTest(touchCoordinates)
+        //        print("hitTest : ", hitTest)
+        //        let currentTouchPoint = sender.location(in: sceneView)
+        //        print("currentTouchPoint : ", currentTouchPoint)
+        //        if let nodeHitTest = sceneView.hitTest(sceneView.center).last {
+        //            let worldTransform = nodeHitTest.worldCoordinates
+        //            print("worldTransform : ", worldTransform)
+        //            print("currentTouchPoint : ", currentTouchPoint)
+        //        }
+    }
+}
+// MARK: - Touch
+extension TestVC {
+    /*
+     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+     let hitTest = sceneView.hitTest(.zero, types: .featurePoint)
+     let result = hitTest.last
+     guard let transform = result?.worldTransform else { return }
+     let thirdColumn = transform.columns.2
+     let position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.y)
+     print("position : ", position)
+     guard shouldSticker && !shouldDrawing else { return }
+     ARManager.shared.addStickerNode(sceneView: sceneView,
+     sticker: stickerGeometryStatus,
+     color: stickerColorStatus,
+     position: position)
+     }
+     */
 }
 // MARK: - AR
 extension TestVC {
     /// AR Default Setting
     private func defaultSettingAR() {
         let sceneViewOptions: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
+        configuration.planeDetection = .vertical
         sceneView.session.run(configuration, options: sceneViewOptions)
         sceneView.automaticallyUpdatesLighting = true
         sceneView.delegate = self
@@ -77,13 +138,18 @@ extension TestVC {
 // MARK: - ARSCNViewDelegate
 extension TestVC: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
+        planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
+        planeNode.position = ARManager.shared.currentPosition(sceneView: sceneView)
         DispatchQueue.main.async {
+//            self.sceneView.scene.rootNode.addChildNode(self.planeNode)
             guard self.shouldDrawing && !self.shouldSticker else { return }
             guard self.createNodeTestButton.isHighlighted else { return }
             ARManager.shared.addDrawingNode(sceneView: self.sceneView,
                                             color: self.drawingColorStatus,
                                             position: ARManager.shared.currentPosition(sceneView: self.sceneView))
         }
+    }
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
     }
 }
 // MARK: - BaseViewSettingProtocol

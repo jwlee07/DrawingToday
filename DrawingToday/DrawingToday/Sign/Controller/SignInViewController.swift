@@ -16,14 +16,27 @@ class SignInViewController: BaseViewController {
     private let googleLoginButton = GIDSignInButton()
     private var loginHandel: AuthStateDidChangeListenerHandle?
     fileprivate var currentNonce: String?
-    private var userInfo = UserInfo(userName: "", userEmail: "")
+    var userInfo: UserInfo?
     // MARK: - LifeCycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getUserInfo()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         buildViews()
         defaultSettingLoginButton()
         defaultSettingGoogleLogin()
-        getUserInfo()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+        Auth.auth().removeStateDidChangeListener(loginHandel!)
     }
     override func buildViews() {
         createViews()
@@ -31,19 +44,13 @@ class SignInViewController: BaseViewController {
 }
 // MARK: - Auth
 extension SignInViewController {
-    /// 사용자 이름, Email 가져오기
+    /// 사용자 이름, Email 확인 후 MainVC로 이동.
     private func getUserInfo() {
         loginHandel = Auth.auth().addStateDidChangeListener({ (_, user) in
-            guard let user = user else { return print("user Error") }
-            guard let userName = user.displayName else { return }
-            guard let userEmail = user.email else { return }
-            print("userName : ", userName)
-            print("userEmail : ", userEmail)
-            self.userInfo.userName = userName
-            self.userInfo.userEmail = userEmail
-            print("userInfo.userName : ", self.userInfo.userName)
-            print("userInfo.userEmail : ", self.userInfo.userEmail)
-
+            SignInManager.shared.userLoginCheck(user: user) { (loginBool) in
+                guard loginBool else { return }
+                self.push(to: MapViewController(), animated: true)
+            }
         })
     }
 }

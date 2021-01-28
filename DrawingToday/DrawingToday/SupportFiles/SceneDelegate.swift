@@ -40,8 +40,7 @@ fileprivate extension SceneDelegate {
     }
     final private func applicationRootViewController() -> UIViewController {
         #if DEBUG
-        return UINavigationController(rootViewController: SignInViewController())
+        return UINavigationController(rootViewController: TestVC())
         #endif
-//        return UINavigationController(rootViewController: MapViewController())
     }
 }

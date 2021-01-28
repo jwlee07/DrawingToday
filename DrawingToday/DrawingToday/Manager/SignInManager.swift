@@ -39,6 +39,13 @@ extension SignInManager {
 }
 // MARK: - Helper
 extension SignInManager {
+    func userLoginCheck(user: User?, completionHandler: @escaping(Bool) -> Void) {
+        guard let userName = user?.displayName,
+              let userEmail = user?.email else { return completionHandler(false) }
+        let userInfo = UserInfo.init(userName: userName, userEmail: userEmail)
+        print("userInfo : ", userInfo)
+        completionHandler(true)
+    }
     /// 암호로 보호된 nonce 생성
     func randomNonceString(length: Int = 32) -> String {
       precondition(length > 0)
